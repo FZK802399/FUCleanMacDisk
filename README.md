@@ -4,33 +4,12 @@ A macOS disk cleanup tool (Objective-C / AppKit). It detects large files across 
 
 ## Features
 
-The header shows live **Free / Total / Used** disk space with a usage bar. Three tabs:
+The header shows live **Free / Total / Used** disk space with a usage bar. Two tabs:
 
-### 1. Junk Cleanup
-Lists reclaimable items grouped by safety level (🟢 Safe / 🟠 Regenerable / 🔴 Caution). Safe items are pre-checked.
-
-| Category | Path | Level |
-|----------|------|-------|
-| Xcode DerivedData | `~/Library/Developer/Xcode/DerivedData` | Safe |
-| Xcode IB caches | `~/Library/Developer/Xcode/UserData/IB Support` | Safe |
-| Xcode documentation cache | `~/Library/Developer/Xcode/DocumentationCache` | Safe |
-| Xcode device logs | `~/Library/Developer/Xcode/iOS Device Logs` | Safe |
-| User caches | `~/Library/Caches` (SIP-protected entries skipped) | Safe |
-| CoreDeviceService cache | `~/Library/Containers/com.apple.CoreDevice.../Caches` | Safe |
-| Gradle / npm / SonarLint caches | `~/.gradle`, `~/.npm`, `~/.sonar` | Safe |
-| Trash | `~/.Trash` | Safe |
-| iOS device support symbols | `~/Library/Developer/Xcode/iOS DeviceSupport` | Regenerable |
-| GoogleUpdater cache | `~/Library/Application Support/Google/GoogleUpdater/crx_cache` | Regenerable |
-| Unavailable simulators | `simctl delete unavailable` | Regenerable |
-| Homebrew old versions | `brew cleanup` | Safe |
-| Android emulators | `~/.android/avd` | Caution |
-| HarmonyOS / Huawei emulator | `~/.Huawei` | Caution |
-| Old Claude versions | `~/.local/share/claude/versions` (keeps latest) | Regenerable |
-
-### 2. Simulator Runtimes
+### 1. Simulator Runtimes
 Lists each installed iOS runtime under `/Library/Developer/CoreSimulator` with its on-disk size, and removes them safely via `xcrun simctl runtime delete <id>` (never a manual `rm`, which would corrupt the runtime database).
 
-### 3. Large Files (>500 MB)
+### 2. Large Files (>500 MB)
 Uses `find` to scan the home directory for large files, sorted by size. Double-click to reveal in Finder. When cleaned, files are **moved to the Trash (recoverable)**, since large files are usually user data.
 
 ## Safety Design
